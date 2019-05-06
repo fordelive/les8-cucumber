@@ -40,6 +40,17 @@ When(/^User logs in with (.*) login and (.*) password and (.*) remember me check
   end
 end
 
+When 'User reopens browser and opens Homepage' do
+  session_cookies = Capybara.page.driver.browser.manage.all_cookies
+  Capybara.current_session.reset_session!
+
+  HomePage.open
+  HomePage.on {driver.browser.manage.delete_all_cookies}
+
+  session_cookies.each {|cookie| HomePage.on {driver.browser.manage.add_cookie(cookie)}}
+  HomePage.on {driver.refresh}
+end
+
 ####################################
 #              CHECKS              #
 ####################################
@@ -47,8 +58,8 @@ end
 Then(/^Login should be (.*)$/) do |state|
   case state
   when 'successful'
-    expect(HomePage.current_page).to be_login_successful
+    expect {HomePage.on {login_successful?}}
   when 'failed'
-    expect(HomePage.current_page).to be_login_failed
+    HomePage.on be_login_failed
   end
 end
