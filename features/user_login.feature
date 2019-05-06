@@ -4,7 +4,7 @@ Feature: User login
 
   Scenario Outline: User logs in
     When User logs in with <login> login and <password> password and <remember> remember me checkbox
-    Then Login should be <state>mtr
+    Then Login should be <state>
 
   Examples:
     | login      | password  | remember   | state      |

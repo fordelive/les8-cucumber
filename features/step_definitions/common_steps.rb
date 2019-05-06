@@ -51,6 +51,10 @@ When 'User reopens browser and opens Homepage' do
   HomePage.on {driver.refresh}
 end
 
+And 'User logs out' do
+  HomePage.on {menu_section.logout}
+end
+
 ####################################
 #              CHECKS              #
 ####################################
@@ -58,8 +62,12 @@ end
 Then(/^Login should be (.*)$/) do |state|
   case state
   when 'successful'
-    expect {HomePage.on {login_successful?}}
+    expect HomePage.on {menu_section.login_successful?}
   when 'failed'
-    HomePage.on be_login_failed
+    expect LoginPage.on {login_failed?} #########
   end
+end
+
+Then 'User should be logged out' do
+  expect HomePage.on {menu_section.logout_successful?}
 end

@@ -3,11 +3,4 @@ class HomePage < Howitzer::Web::Page
   validate :url, %r{\A(?:.*?:\/\/)?[^\/]*\/?\z}
 
   section :menu
-
-  # element :search_input, :fillable_field, 'lst-ib'
-  # element :search_btn, :button, 'btnK'
-  #
-  # def fill_keyword(data)
-  #   search_input_element.set(data)
-  # end
 end

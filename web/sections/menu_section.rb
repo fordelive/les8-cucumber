@@ -20,10 +20,10 @@ class MenuSection < Howitzer::Web::Section
   end
 
   def login_successful?
-    link_logout.visible?
+    log_out_element.visible?
   end
 
-  def login_failed?
-    flash_alert.visible?
+  def logout_successful?
+    log_in_element.visible?
   end
 end
