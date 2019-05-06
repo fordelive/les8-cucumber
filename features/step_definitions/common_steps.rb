@@ -14,21 +14,21 @@ end
 #              ACTIONS             #
 ####################################
 
-When 'User logs in with (.*) login and (.*) password and (.*) remember me checkbox' do |login, password, remember|
+When(/^User logs in with (.*) login and (.*) password and (.*) remember me checkbox$/) do |login, password, remember|
   case login
   when 'correct'
-    login = CORRECT_LOGIN
+    login = Howitzer.app_test_user
   when 'incorrect'
-    login = INCORRECT_LOGIN
+    login = 'blabla@mail.net'
   when 'empty'
     login = ''
   end
 
   case password
   when 'correct'
-    password = CORRECT_PASSWORD
+    password = Howitzer.app_test_pass
   when 'incorrect'
-    password = INCORRECT_PASSWORD
+    password = '123456'
   when 'empty'
     password = ''
   end
@@ -40,18 +40,15 @@ When 'User logs in with (.*) login and (.*) password and (.*) remember me checkb
   end
 end
 
-When 'I press {word}' do |_button|
-  pending
-end
-
 ####################################
 #              CHECKS              #
 ####################################
 
-Then 'the result should be {float} on the screen' do |_output|
-  pending
-end
-
-Then 'Login should be (.*)' do |state|
-  pending
+Then(/^Login should be (.*)$/) do |state|
+  case state
+  when 'successful'
+    expect(HomePage.current_page).to be_login_successful
+  when 'failed'
+    expect(HomePage.current_page).to be_login_failed
+  end
 end

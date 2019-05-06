@@ -12,9 +12,3 @@ Dir[
 ].each { |f| require f }
 
 String.send(:include, Howitzer::Utils::StringExtensions)
-
-CORRECT_LOGIN = app_test_user
-CORRECT_PASSWORD = app_test_pass
-
-INCORRECT_LOGIN = 'blabla@mail.net'
-INCORRECT_PASSWORD = '123456'
