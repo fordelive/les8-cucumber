@@ -18,4 +18,12 @@ class MenuSection < Howitzer::Web::Section
     Howitzer::Log.info 'Log out'
     log_out_element.click
   end
+
+  def login_successful?
+    log_out_element.visible?
+  end
+
+  def logout_successful?
+    log_in_element.visible?
+  end
 end
